@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.header {
+  position: relative;
+  background-color: darkorange;
+  min-height: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+h2, h1 {
+  margin: 0;
+}
+.header h2 {
+  padding: 30px;
+  color: white;
+}
+.header h1 {
+  color: white;
+  font-size: 6em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  line-height: 0.7;
+}
+
+.subheader {
+  background-color: #eaeaea;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.subheader h4 {
+  text-transform: uppercase;
+  color: #157075;
+}
+
+.card-container {
+  margin: 12px;
+}
+.card-container, .front, .back {
+  height: 200px;
+  width: 200px;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+.card-container .name {
+  font-size: 1em;
+  color:white;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 12px 0;
+}
+.card-container .back .name {
+  color:grey;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  box-shadow: 2px 4px 6px 0 rgba(0,0,0,0.2);
+	top: 0;
+	left: 0;
+}
+.flipper {
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.front {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.back {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  background: #68e157;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card-container.open .flipper {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
