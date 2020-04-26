@@ -52,7 +52,6 @@ function GameContainer() {
     let newCards = cards;
     let clickedCard = newCards.find((card) => { return card.id === id; });
     let currentOpenCards = cardsOpen;
-    console.log(currentOpenCards);
 
     if (currentOpenCards === 0) {
       cardOpensNumber(1);
@@ -60,8 +59,6 @@ function GameContainer() {
     } else if (currentOpenCards === 1) {
       addMove(moves + 1);
       cardOpensNumber(2)
-      console.log(clickedCard);
-      console.log(cards.find((card) => { return (card.isOpen && !card.solved) }));
       checkMatch(clickedCard, cards.find((card) => { return (card.isOpen && !card.solved) }));
     } else if (currentOpenCards === 2) {
       cardOpensNumber(1)
@@ -104,7 +101,6 @@ function GameContainer() {
     });
     if (tempWin) {
       setIsRunning(false);
-      console.log(count);
       setWin(true);
     }
   }

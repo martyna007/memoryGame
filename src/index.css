@@ -138,22 +138,22 @@ h2, h1 {
   transform: rotateY(180deg);
 }
 @-webkit-keyframes pop-in {
-  0% { opacity: 0; -webkit-transform: scale(0.5) translate(-50%, -50%)}
-  100% { opacity: 1; -webkit-transform: scale(1) translate(-50%, -50%)}
+  0% { opacity: 0; -webkit-transform: translate(-50%, -50%) scale(0.5) }
+  100% { opacity: 1; -webkit-transform: translate(-50%, -50%) scale(1) }
 }
 @-moz-keyframes pop-in {
-  0% { opacity: 0; -moz-transform: scale(0.5) translate(-50%, -50%)}
-  100% { opacity: 1; -moz-transform: scale(1) translate(-50%, -50%)}
+  0% { opacity: 0; -moz-transform: translate(-50%, -50%) scale(0.5) }
+  100% { opacity: 1; -moz-transform: translate(-50%, -50%) scale(1) }
 }
 @keyframes pop-in {
-  0% { opacity: 0; transform: scale(0.5) translate(-50%, -50%)}
-  100% { opacity: 1; transform: scale(1) translate(-50%, -50%)}
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) }
 }
 .game-over {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: scale(1) translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1) ;
   background-color:white;
   padding: 50px;
   border-radius: 10px;
@@ -167,6 +167,9 @@ h2, h1 {
 .game-over h1 {
   color: #157075;
 }
+.game-over h3 {
+  margin: 30px 10px;
+}
 .game-container.block-view {
   pointer-events: none;
   opacity: 0.5;
@@ -175,7 +178,7 @@ h2, h1 {
   color:white;
   background-color:#ff7800;
   display: inline-flex;
-  padding: 15px 16px;
+  padding: 16px 12px 12px 12px;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
@@ -183,4 +186,5 @@ h2, h1 {
   cursor: pointer;
   -webkit-transition: 0.6s;
   transition: 0.6s;
+  margin-top: 10px;
 }
