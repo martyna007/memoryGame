@@ -17,65 +17,9 @@
     },
     {
         
-        "name": "Rododendron",
-        "cardId": 3,
-        "img": "./images/3.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
         "name": "Plant",
         "cardId": 4,
         "img": "./images/4.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Cos tam2",
-        "cardId": 5,
-        "img": "./images/5.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Monstera2222",
-        "cardId": 6,
-        "img": "./images/6.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Cos tam121323232",
-        "cardId": 7,
-        "img": "./images/7.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Rododendron3",
-        "cardId": 8,
-        "img": "./images/8.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Plant4",
-        "cardId": 9,
-        "img": "./images/9.png",
-        "isOpen": false,
-        "solved": false
-    },
-    {
-        
-        "name": "Cos tam200000",
-        "cardId": 10,
-        "img": "./images/10.png",
         "isOpen": false,
         "solved": false
     }
