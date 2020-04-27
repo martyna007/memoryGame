@@ -1,6 +1,9 @@
 # memoryGame
 simple memory game made with reactjs
 
+## Screenshots
+![Screenshot](https://user-images.githubusercontent.com/21356522/80408302-470b1700-88c7-11ea-9d0c-60fe4e44080d.png)
+![Screenshot2](https://user-images.githubusercontent.com/21356522/80408306-483c4400-88c7-11ea-8e89-08b4e276e3a5.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
