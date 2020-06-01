@@ -1,5 +1,6 @@
 {
   "name": "memorygame",
+  "homepage": "https://martyna007.github.io/memoryGame/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

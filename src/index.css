@@ -188,3 +188,60 @@ h2, h1 {
   transition: 0.6s;
   margin-top: 10px;
 }
+@media (max-width: 1166px) {
+  .card-container, .front, .back {
+    height: 140px;
+    width: 140px;
+  }
+  .card-container .name {
+    padding: 8px 0;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+  }
+}
+@media (max-width: 767px) {
+  .header {
+    min-height: 80px;
+  }
+  .header h1 {
+    color: white;
+    font-size: 3em;
+    bottom: -2px;
+  }
+  .header h2 {
+    padding: 22px 0px 0px 6px;
+    font-size: 1em;
+  }
+  .subheader h4 {
+    font-size: 0.8em;
+    margin: 10px 0;
+  }
+  .card-container, .front, .back {
+    height: 100px;
+    width: 100px;
+  }
+  .card-container .name {
+    padding: 4px 0;
+    letter-spacing: 0;
+  }
+  .game-container {
+    padding: 10px 0;
+  }
+  .card-container {
+    margin: 6px;
+  }
+  .game-over {
+    padding: 36px;
+  }
+  .game-over h1 {
+    font-size: 1.2em;
+  }
+  .game-over h3 {
+    font-size: 0.9em;
+    margin: 14px 10px;
+  }
+  .game-over .btn {
+    font-size: 0.8em;
+    padding: 13px 10px 10px 12px;
+  }
+}
