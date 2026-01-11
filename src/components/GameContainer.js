@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useInterval } from "@react-corekit/use-interval";
 
 import Header from './Header';
@@ -19,9 +19,17 @@ function GameContainer() {
     setCount(c => c + 1);
   }, isRunning ? 1000 : null);
 
+  const resetGame = useCallback(() => {
+    setCards(prepareCards(plantList));
+    setMoves(0);
+    setCount(0);
+    setWin(false);
+    setIsRunning(false);
+  }, []);
+
   useEffect(() => {
     resetGame();
-  }, []);
+  }, [resetGame]);
 
   function prepareCards(list) {
     return [...list, ...list]
@@ -91,14 +99,6 @@ function GameContainer() {
       setWin(true);
     }
   }, [cards]);
-
-  function resetGame() {
-    setCards(prepareCards(plantList));
-    setMoves(0);
-    setCount(0);
-    setWin(false);
-    setIsRunning(false);
-  }
 
   return (
     <>
