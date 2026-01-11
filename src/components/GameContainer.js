@@ -1,126 +1,129 @@
 import React, { useState, useEffect } from 'react';
 import { useInterval } from "@react-corekit/use-interval";
 
-import Header from './Header'
-import Subheader from './Subheader'
-import Card from './Card'
-import GameOverModal from './GameOverModal'
+import Header from './Header';
+import Subheader from './Subheader';
+import Card from './Card';
+import GameOverModal from './GameOverModal';
 
-import plantList from '../data/plants.json'
-//TODO: add choose your background and choose category
+import plantList from '../data/plants.json';
 
 function GameContainer() {
   const [cards, setCards] = useState([]);
-  const [cardsOpen, cardOpensNumber] = useState(0);
-  const [moves, addMove] = useState(0);
+  const [moves, setMoves] = useState(0);
   const [count, setCount] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [win, setWin] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
 
-  useInterval(
-    () => {
-      setCount(count + 1);
-    },
-    isRunning ? 1000 : null
-  );
+  useInterval(() => {
+    setCount(c => c + 1);
+  }, isRunning ? 1000 : null);
 
   useEffect(() => {
-    setCards(prepareCards(plantList))
-    addMove(0)
-    setCount(0);
-    setWin(false)
-    setGameOver(false)
-  }, [gameOver])
-
+    resetGame();
+  }, []);
 
   function prepareCards(list) {
-    let completeList = [...list];
-
-    completeList = completeList.concat([...list])
-    completeList = JSON.parse(JSON.stringify(completeList));
-
-    completeList.forEach(function (card) {
-      card.id = Math.floor((Math.random() * 1000) + 1)
-    });
-    completeList.sort(() => Math.random() - 0.5);
-
-    return completeList;
+    return [...list, ...list]
+      .map((card, index) => ({
+        ...card,
+        id: `${card.matchCardId}-${index}-${Math.random()}`,
+        isOpen: false,
+        solved: false
+      }))
+      .sort(() => Math.random() - 0.5);
   }
 
   function handleClick(id) {
-    let newCards = cards;
-    let clickedCard = newCards.find((card) => { return card.id === id; });
-    let currentOpenCards = cardsOpen;
+    const clicked = cards.find(c => c.id === id);
+    if (!clicked || clicked.solved || clicked.isOpen) return;
 
-    if (currentOpenCards === 0) {
-      cardOpensNumber(1);
-      setIsRunning(true);
-    } else if (currentOpenCards === 1) {
-      addMove(moves + 1);
-      cardOpensNumber(2)
-      checkMatch(clickedCard, cards.find((card) => { return (card.isOpen && !card.solved) }));
-    } else if (currentOpenCards === 2) {
-      cardOpensNumber(1)
-      allCardsDown();
+    const openUnsolved = cards.filter(c => c.isOpen && !c.solved);
+
+    // If two unmatched cards are open: close them and open the clicked card
+    if (
+      openUnsolved.length === 2 &&
+      openUnsolved[0].matchCardId !== openUnsolved[1].matchCardId
+    ) {
+      setCards(prev =>
+        prev.map(card => {
+          if (card.id === id) {
+            return { ...card, isOpen: true };
+          }
+          return card.solved ? card : { ...card, isOpen: false };
+        })
+      );
+
+      if (!isRunning) setIsRunning(true);
+      return;
     }
-    clickedCard.isOpen = true;
+
+    // Normal open
+    setCards(prev =>
+      prev.map(card =>
+        card.id === id ? { ...card, isOpen: true } : card
+      )
+    );
+
+    if (!isRunning) setIsRunning(true);
   }
 
-  function checkMatch(card1, card2) {
-    if (card1.cardId === card2.cardId && card1.id !== card2.id) {
-      card1.isOpen = true;
-      let newCards = cards;
-      newCards.find((card) => { return card.id === card1.id }).solved = true;
-      newCards.find((card) => { return card.id === card2.id }).solved = true;
+  useEffect(() => {
+    const open = cards.filter(c => c.isOpen && !c.solved);
+    if (open.length !== 2) return;
 
-      cardOpensNumber(0)
-      setCards(newCards)
+    setMoves(m => m + 1);
 
-      checkWin();
+    if (open[0].matchCardId === open[1].matchCardId) {
+      setCards(prev =>
+        prev.map(card =>
+          card.matchCardId === open[0].matchCardId
+            ? { ...card, solved: true }
+            : card
+        )
+      );
     }
-  }
+  }, [cards]);
 
-  function allCardsDown() {
-    let newCards = cards;
-
-    newCards.forEach((card) => {
-      card.isOpen = false;
-      if (card.solved) card.isOpen = true;
-    });
-    setCards(newCards);
-  }
-
-  function checkWin() {
-    let tempWin = true;
-    cards.forEach((card) => {
-      if (!card.solved) {
-        tempWin = false;
-        return;
-      }
-    });
-    if (tempWin) {
+  useEffect(() => {
+    if (cards.length && cards.every(card => card.solved)) {
       setIsRunning(false);
       setWin(true);
     }
-  }
+  }, [cards]);
 
-  function restartGame() {
-    setGameOver(true);
+  function resetGame() {
+    setCards(prepareCards(plantList));
+    setMoves(0);
+    setCount(0);
+    setWin(false);
+    setIsRunning(false);
   }
 
   return (
     <>
       <Header />
-      <Subheader moves={moves} time={count}/>
-      <div className={"game-container " + (win ? "block-view" : " ")}>
-        {cards.map((card, index) => (
-          <Card key={index} cardInfo={card} clicked={handleClick} />
+      <Subheader moves={moves} time={count} />
+
+      <div className={`game-container ${win ? 'block-view' : ''}`}>
+        {cards.map(card => (
+          <Card
+            key={card.id}
+            cardInfo={card}
+            clicked={handleClick}
+          />
         ))}
       </div>
-      {win ? <GameOverModal onClick={restartGame} time={count} moves={moves}/> : null}
+
+      {win && (
+        <GameOverModal
+          onClick={resetGame}
+          time={count}
+          moves={moves}
+        />
+      )}
     </>
-  )
+  );
 }
 
 export default GameContainer;
